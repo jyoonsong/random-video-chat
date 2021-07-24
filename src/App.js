@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import Login from "./components/Login";
 import { firebase_auth } from './utils/firebase';
+
+import Login from "./components/Login";
+import Chat from "./components/Chat";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -30,6 +32,7 @@ function App() {
           <>
             {loggedIn ?
               <>
+                <Chat />
                 <button onClick={handleLogout}>Sign out</button>
               </>
             :
