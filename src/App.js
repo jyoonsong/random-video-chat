@@ -17,6 +17,10 @@ function App() {
         setLoading(false);
     })
   }, []);
+
+  const handleLogout = () => {
+    firebase_auth.signOut();
+  }
   
   return (
     <div className="wrapper">
@@ -25,7 +29,9 @@ function App() {
           :
           <>
             {loggedIn ?
-              "You are logged in"
+              <>
+                <button onClick={handleLogout}>Sign out</button>
+              </>
             :
               <Login />
             }
