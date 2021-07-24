@@ -7,11 +7,17 @@ import Chat from "./components/Chat";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     firebase_auth.onAuthStateChanged((user) => {
         if (user !== null) {
             setLoggedIn(true);
+            setUser({
+              uid: user.uid,
+              name: user.displayName,
+              email: user.email,
+            });
         }
         else {
             setLoggedIn(false);
@@ -32,7 +38,7 @@ function App() {
           <>
             {loggedIn ?
               <>
-                <Chat />
+                <Chat currentUser={user} />
                 <button onClick={handleLogout}>Sign out</button>
               </>
             :
