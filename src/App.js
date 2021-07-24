@@ -4,6 +4,7 @@ import { firebase_auth } from './utils/firebase';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     firebase_auth.onAuthStateChanged((user) => {
@@ -13,15 +14,22 @@ function App() {
         else {
             setLoggedIn(false);
         }
+        setLoading(false);
     })
   }, []);
-
+  
   return (
     <div className="wrapper">
-        {loggedIn ?
-          "You are logged in"
-        :
-          <Login />
+        {loading ?
+          "Loading..."
+          :
+          <>
+            {loggedIn ?
+              "You are logged in"
+            :
+              <Login />
+            }
+          </>
         }
     </div>
   );
