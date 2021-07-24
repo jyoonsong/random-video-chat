@@ -11,6 +11,7 @@ body {
 
 .wrapper {
   display: flex;
-  justify-content: center;
   padding: 1rem;
+  flex-direction: column;
+  align-items: center;
 }
