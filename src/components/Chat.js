@@ -17,6 +17,18 @@ const Chat = ({ currentUser }) => {
         setState("waiting");
     }
 
+    const setToOffline = async () => {
+        // set firebase state to offline
+        const currentUserRef = await firestore.collection("user").doc(currentUser.uid);
+        await currentUserRef.set({
+            state: "offline",
+            partner: ""
+        });
+
+        // set react state to offline
+        setState("offline");
+    }
+
     // render
     let returnValue = <button onClick={setToWaiting}>Start a random video chat</button>
 
@@ -24,7 +36,7 @@ const Chat = ({ currentUser }) => {
         returnValue = <div>
             Searching for your partner...<br/>
             Please wait a minute<br/>
-            <button>Stop searching</button>
+            <button onClick={setToOffline}>Stop searching</button>
         </div>
     }
     else if (state === "talking") {
