@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { firebase_auth } from './utils/firebase';
+import { firebase_auth, firestore } from './utils/firebase';
 
 import Login from "./components/Login";
 import Chat from "./components/Chat";
@@ -26,7 +26,14 @@ function App() {
     })
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // set firebase state to offline
+    const currentUserRef = await firestore.collection("user").doc(user.uid);
+    await currentUserRef.set({
+        state: "offline",
+        partner: ""
+    });
+
     firebase_auth.signOut();
   }
   
